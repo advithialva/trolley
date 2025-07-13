@@ -299,7 +299,7 @@ const MyOrders = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))}<br/><br/><br/>
           </div>
         ) : (
           // Empty State
@@ -321,7 +321,7 @@ const MyOrders = () => {
             </div>
           </div>
         )}
-      </div>
+      </div><br/><br/><br/>
     </div>
   );
 };
