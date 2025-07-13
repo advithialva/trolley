@@ -135,8 +135,10 @@ npm run dev
 
 ### Products
 - `GET /api/product/list` - Get all products
+- `GET /api/product/id` - Get single product by ID
 - `POST /api/product/add-product` - Add new product (seller)
-- `POST /api/product/remove` - Delete product (seller)
+- `POST /api/product/stock` - Update product stock status (seller)
+- `DELETE /api/product/delete/:id` - Delete product (seller)
 
 ### Cart & Orders
 - `POST /api/cart/add` - Add item to cart
