@@ -1,8 +1,6 @@
 # 🛒 Trolley – Online Grocery Delivery App Using MERN Stack
 
-**Trolley** is a modern e-commerce platform that allows customers to browse groceries, add items to cart, and place orders, while providing sellers with a comprehensive dashboard to manage products and orders.
-
-This is a **full-stack online grocery delivery application** built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js).  
+**Trolley** is a modern grocery delivery platform that allows customers to browse groceries, add items to cart, and place orders, while providing sellers with a comprehensive dashboard to manage products and orders.
 
 ---
 
