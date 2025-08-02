@@ -112,7 +112,7 @@ const SingleProduct = () => {
                           typeof image === 'string' && image.startsWith('https') 
                             ? image 
                             : typeof image === 'string'
-                            ? `http://localhost:4000/images/${image}`
+                            ? `${import.meta.env.VITE_BACKEND_URL}/images/${image}`
                             : image
                         }
                         alt={`Thumbnail ${index + 1}`}

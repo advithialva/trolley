@@ -177,7 +177,7 @@ const Cart = () => {
                       >
                         <img
                           className="w-full h-full object-cover"
-                          src={`http://localhost:4000/images/${product.image[0]}`}
+                          src={`${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`}
                           alt={product.name}
                           loading="lazy"
                         />

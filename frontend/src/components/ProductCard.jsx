@@ -42,7 +42,7 @@ const ProductCard = ({ product }) => {
             <img
               className="group-hover:scale-110 transition-transform duration-300 max-h-full max-w-full object-contain"
               src={
-                typeof product.image[0] === 'string' && product.image[0].startsWith('https')
+                typeof product.image[0] === 'string' && product.image[0].startsWith('http')
                   ? product.image[0]
                   : `${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`
               }

@@ -186,7 +186,7 @@ const ProductList = () => {
                               typeof product.image[0] === 'string' && product.image[0].startsWith('http') 
                                 ? product.image[0] 
                                 : typeof product.image[0] === 'string'
-                                ? `http://localhost:4000/images/${product.image[0]}`
+                                ? `${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`
                                 : product.image[0]
                             }
                             alt={product.name}
@@ -264,7 +264,7 @@ const ProductList = () => {
                         typeof product.image[0] === 'string' && product.image[0].startsWith('http') 
                           ? product.image[0] 
                           : typeof product.image[0] === 'string'
-                          ? `http://localhost:4000/images/${product.image[0]}`
+                          ? `${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`
                           : product.image[0]
                       }
                       alt={product.name}

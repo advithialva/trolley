@@ -233,7 +233,7 @@ const MyOrders = () => {
                                 typeof item.product.image[0] === 'string' && item.product.image[0].startsWith('http') 
                                   ? item.product.image[0] 
                                   : typeof item.product.image[0] === 'string'
-                                  ? `http://localhost:4000/images/${item.product.image[0]}`
+                                  ? `${import.meta.env.VITE_BACKEND_URL}/images/${item.product.image[0]}`
                                   : item.product.image[0]
                               }
                               alt={item.product.name}
