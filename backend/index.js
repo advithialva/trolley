@@ -17,9 +17,20 @@ dotenv.config();
 const app = express();
 
 // CORS setup 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://trolley-delivery.vercel.app"
+];
+
 app.use(cors({
-  origin: "http://localhost:5173", // your frontend URL
-  credentials: true               // allow cookies
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed for this origin: " + origin));
+    }
+  },
+  credentials: true
 }));
 
 // Middleware
