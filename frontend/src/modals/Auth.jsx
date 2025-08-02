@@ -11,11 +11,16 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      console.log("🚀 Attempting to sign in...", { state, email });
+      
       const { data } = await axios.post(`/api/user/${state}`, {
         name,
         email,
         password,
       });
+      
+      console.log("✅ Login response:", data);
+      
       if (data.success) {
         toast.success(data.message);
         navigate("/");
@@ -25,10 +30,15 @@ const Auth = () => {
         toast.error(data.message);
       }
     } catch (error) {
+      console.error("❌ Login error:", error);
+      console.error("❌ Error response:", error.response);
+      
       if (error.response?.status === 401 || error.response?.status === 400) {
         toast.error("Invalid credentials. Please check your email and password.");
       } else if (error.response?.data?.message) {
         toast.error(error.response.data.message);
+      } else if (error.code === 'ERR_NETWORK') {
+        toast.error("Network error. Please check your connection and try again.");
       } else {
         toast.error("Something went wrong. Please try again.");
       }
