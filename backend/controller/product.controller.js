@@ -1,24 +1,48 @@
 import Product from "../models/product.model.js";
+import { v2 as cloudinary } from "cloudinary";
 
 // add product :/api/product/add
 export const addProduct = async (req, res) => {
   try {
     const { name, price, offerPrice, description, category } = req.body;
-    // const image = req.files?.map((file) => `/uploads/${file.filename}`);
-    const image = req.files?.map((file) => file.filename);
-    if (
-      !name ||
-      !price ||
-      !offerPrice ||
-      !description ||
-      !category ||
-      !image ||
-      image.length === 0
-    ) {
+    
+    if (!name || !price || !offerPrice || !description || !category || !req.files || req.files.length === 0) {
       return res.status(400).json({
         success: false,
         message: "All fields including images are required",
       });
+    }
+
+    // Check if we should use Cloudinary (if env vars are set)
+    const useCloudinary = process.env.CLOUDINARY_CLOUD_NAME && 
+                          process.env.CLOUDINARY_API_KEY && 
+                          process.env.CLOUDINARY_API_SECRET;
+
+    let imageUrls = [];
+
+    if (useCloudinary) {
+      // Upload to Cloudinary
+      console.log("Uploading images to Cloudinary...");
+      for (const file of req.files) {
+        try {
+          const result = await cloudinary.uploader.upload(file.path, {
+            resource_type: "image",
+            folder: "grocery-app/products",
+          });
+          imageUrls.push(result.secure_url);
+          console.log("Uploaded to Cloudinary:", result.secure_url);
+        } catch (uploadError) {
+          console.error("Error uploading to Cloudinary:", uploadError);
+          return res.status(500).json({
+            success: false,
+            message: "Error uploading images to cloud storage",
+          });
+        }
+      }
+    } else {
+      // Fallback to local storage (not recommended for production)
+      console.log("Using local storage (not recommended for production)");
+      imageUrls = req.files.map((file) => file.filename);
     }
 
     const product = new Product({
@@ -27,7 +51,7 @@ export const addProduct = async (req, res) => {
       offerPrice,
       description,
       category,
-      image,
+      image: imageUrls,
     });
 
     const savedProduct = await product.save();
