@@ -259,10 +259,16 @@ const Orders = () => {
                           Delivery Address
                         </h4>
                         <div className="text-sm text-gray-700 space-y-1">
-                          <p className="font-medium">{order.address.firstName} {order.address.lastName}</p>
-                          <p>{order.address.street}</p>
-                          <p>{order.address.city}, {order.address.state}</p>
-                          <p>{order.address.zipcode}, {order.address.country}</p>
+                          {order.address ? (
+                            <>
+                              <p className="font-medium">{order.address.firstName} {order.address.lastName}</p>
+                              <p>{order.address.street}</p>
+                              <p>{order.address.city}, {order.address.state}</p>
+                              <p>{order.address.zipCode || order.address.zipcode}, {order.address.country}</p>
+                            </>
+                          ) : (
+                            <p className="text-gray-500 italic">Address information not available</p>
+                          )}
                         </div>
                       </div>
 
