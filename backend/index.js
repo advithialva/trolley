@@ -1,6 +1,7 @@
 // index.js
 import express from "express";
 import cors from "cors";
+import path from "path";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { connectDB } from "./config/connectDB.js";
@@ -15,6 +16,9 @@ import orderRoutes from "./routes/order.routes.js";
 dotenv.config();
 
 const app = express();
+
+const __dirname = path.resolve(); 
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 // CORS setup 
 const allowedOrigins = [

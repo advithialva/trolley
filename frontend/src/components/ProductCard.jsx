@@ -42,11 +42,9 @@ const ProductCard = ({ product }) => {
             <img
               className="group-hover:scale-110 transition-transform duration-300 max-h-full max-w-full object-contain"
               src={
-                typeof product.image[0] === 'string' && product.image[0].startsWith('http') 
-                  ? product.image[0] 
-                  : typeof product.image[0] === 'string'
-                  ? `http://localhost:4000/images/${product.image[0]}`
-                  : product.image[0]
+                typeof product.image[0] === 'string' && product.image[0].startsWith('http')
+                  ? product.image[0]
+                  : `${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`
               }
               alt={product.name}
               loading="lazy"
