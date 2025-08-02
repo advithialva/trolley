@@ -18,7 +18,28 @@ dotenv.config();
 const app = express();
 
 const __dirname = path.resolve(); 
-app.use("/images", express.static(path.join(__dirname, "uploads")));
+
+// Serve static files with proper headers and error handling
+app.use("/images", (req, res, next) => {
+  const imagePath = path.join(__dirname, "uploads", req.path);
+  
+  // Set proper headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+  // Check if file exists
+  if (!require('fs').existsSync(imagePath)) {
+    console.log(`Image not found: ${imagePath}`);
+    return res.status(404).json({ 
+      error: 'Image not found',
+      path: imagePath,
+      requested: req.path 
+    });
+  }
+  
+  next();
+}, express.static(path.join(__dirname, "uploads")));
 
 // CORS setup 
 const allowedOrigins = [
@@ -44,6 +65,17 @@ app.use(express.json());
 // Connect services
 await connectCloudinary();
 connectDB();
+
+// Health check route
+app.get("/health", (req, res) => {
+  res.json({
+    status: "OK",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || "development",
+    uploadsPath: path.join(process.cwd(), "uploads")
+  });
+});
 
 // API routes
 app.use("/api/user", userRoutes);
