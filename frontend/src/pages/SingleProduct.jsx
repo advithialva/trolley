@@ -109,7 +109,7 @@ const SingleProduct = () => {
                     >
                       <img
                         src={
-                          typeof image === 'string' && image.startsWith('https') 
+                          typeof image === 'string' && image.startsWith('http') 
                             ? image 
                             : typeof image === 'string'
                             ? `${import.meta.env.VITE_BACKEND_URL}/images/${image}`

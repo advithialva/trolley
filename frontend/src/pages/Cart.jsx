@@ -177,7 +177,11 @@ const Cart = () => {
                       >
                         <img
                           className="w-full h-full object-cover"
-                          src={`${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`}
+                          src={
+                            typeof product.image[0] === 'string' && product.image[0].startsWith('http')
+                              ? product.image[0]
+                              : `${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`
+                          }
                           alt={product.name}
                           loading="lazy"
                         />
@@ -345,8 +349,8 @@ const Cart = () => {
                     <span className="text-green-600 font-medium">Free</span>
                   </div>
                   <div className="flex justify-between text-gray-600 text-xs sm:text-sm">
-                    <span>Tax (2%)</span>
-                    <span>{formatPrice((totalCartAmount() * 2) / 100)}</span>
+                    <span>GST (8%)</span>
+                    <span>{formatPrice((totalCartAmount() * 8) / 100)}</span>
                   </div>
                   <hr className="border-gray-200" />
                   <div className="flex justify-between text-sm sm:text-lg font-bold text-gray-900">
