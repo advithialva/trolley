@@ -109,7 +109,7 @@ const SingleProduct = () => {
                     >
                       <img
                         src={
-                          typeof image === 'string' && image.startsWith('http') 
+                          typeof image === 'string' && image.startsWith('https') 
                             ? image 
                             : typeof image === 'string'
                             ? `http://localhost:4000/images/${image}`
