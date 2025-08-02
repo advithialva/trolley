@@ -87,7 +87,7 @@ const SingleProduct = () => {
                       typeof thumbnail === 'string' && thumbnail.startsWith('http') 
                         ? thumbnail 
                         : typeof thumbnail === 'string'
-                        ? `http://localhost:4000/images/${thumbnail}`
+                        ? `${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`
                         : thumbnail
                     }
                     alt="Selected product"
