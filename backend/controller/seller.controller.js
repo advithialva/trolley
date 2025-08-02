@@ -10,11 +10,16 @@ export const sellerLogin = async (req, res) => {
       const token = jwt.sign({ email }, process.env.JWT_SECRET, {
         expiresIn: "7d",
       });
+      
+      // Cookie settings for production and development
+      const isProduction = process.env.NODE_ENV === 'production';
+      
       res.cookie("sellerToken", token, {
         httpOnly: true,
-        secure: false, // Set to false in development for localhost
-        sameSite: "lax", // More permissive for CORS in development
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+        secure: isProduction, // HTTPS in production, HTTP in development
+        sameSite: isProduction ? "none" : "lax", // "none" for cross-site in production
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        domain: isProduction ? undefined : undefined, // Let browser handle domain
       });
       return res
         .status(200)
